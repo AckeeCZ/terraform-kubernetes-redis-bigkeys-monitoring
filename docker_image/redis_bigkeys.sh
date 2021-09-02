@@ -1,8 +1,8 @@
 #!/bin/bash
 
-database=${DATABASE:-5}
-host=${HOST:-"localhost"}
-sleep=${SLEEP:-"60"}
+DATABASE=${DATABASE:-5}
+HOST=${HOST:-"localhost"}
+SLEEP=${SLEEP:-"60"}
 
 gcm_write_metric() {
   local metric_type=$1
@@ -51,22 +51,22 @@ while true; do
       labels=$(jq -n \
           --arg biggest_type "$biggest_type" \
           --arg biggest_name "$biggest_name" \
-          --arg database "$database" \
-          --arg host "$host" \
+          --arg database "$DATABASE" \
+          --arg host "$HOST" \
           '{"type": $biggest_type, "name": $biggest_name, "database": $database, "host": $host}')
       gcm_write_metric "redis/bigkeys/biggest" "$labels" "$biggest_value" doubleValue
-  done <<< $(redis-cli -h "$host" --bigkeys -n 5 | awk '/^Biggest/{name=substr($4,2,length($4)-2); printf("%s %s %s\n", $2, name, $(NF-1))}')
+  done <<< $(redis-cli -h "$HOST" --bigkeys -n 5 | awk '/^Biggest/{name=substr($4,2,length($4)-2); printf("%s %s %s\n", $2, name, $(NF-1))}')
 
 
   while read -r avg_count avg_type avg_value; do
       labels=$(jq -n \
           --arg avg_count "$avg_count" \
           --arg avg_type "$avg_type" \
-          --arg database "$database" \
-          --arg host "$host" \
+          --arg database "$DATABASE" \
+          --arg host "$HOST" \
           '{"count": $avg_count, "type": $avg_type, "database": $database, "host": $host}')
       gcm_write_metric "redis/bigkeys/avg" "$labels" "$avg_value" doubleValue
-  done <<< $(redis-cli -h "$host" --bigkeys -n 5 | awk '/^[0-9]* .* avg size [0-9\.]*\)$/{gsub(")", "", $NF); printf("%s %s %s\n", $1, $2, $NF)}')
+  done <<< $(redis-cli -h "$HOST" --bigkeys -n 5 | awk '/^[0-9]* .* avg size [0-9\.]*\)$/{gsub(")", "", $NF); printf("%s %s %s\n", $1, $2, $NF)}')
   
   sleep $SLEEP
 done

@@ -32,6 +32,10 @@ resource "kubernetes_deployment" "redis_bigkeys_monitoring" {
             name  = "HOST"
             value = var.redis_host
           }
+          env {
+            name  = "GCP_PROJECT_ID"
+            value = var.project
+          }
         }
       }
     }
