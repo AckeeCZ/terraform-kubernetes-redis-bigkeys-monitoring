@@ -22,3 +22,7 @@ variable "cluster_endpoint" {
   description = "Cluster control plane endpoint"
   type        = string
 }
+
+variable "redis_host" {
+  default = ""
+}

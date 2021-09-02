@@ -52,7 +52,8 @@ while true; do
           --arg biggest_type "$biggest_type" \
           --arg biggest_name "$biggest_name" \
           --arg database "$database" \
-          '{"type": $biggest_type, "name": $biggest_name, "database": $database}')
+          --arg host "$host" \
+          '{"type": $biggest_type, "name": $biggest_name, "database": $database, "host": $host}')
       gcm_write_metric "redis/bigkeys/biggest" "$labels" "$biggest_value" doubleValue
   done <<< $(redis-cli -h "$host" --bigkeys -n 5 | awk '/^Biggest/{name=substr($4,2,length($4)-2); printf("%s %s %s\n", $2, name, $(NF-1))}')
 
@@ -62,7 +63,8 @@ while true; do
           --arg avg_count "$avg_count" \
           --arg avg_type "$avg_type" \
           --arg database "$database" \
-          '{"count": $avg_count, "type": $avg_type, "database": $database}')
+          --arg host "$host" \
+          '{"count": $avg_count, "type": $avg_type, "database": $database, "host": $host}')
       gcm_write_metric "redis/bigkeys/avg" "$labels" "$avg_value" doubleValue
   done <<< $(redis-cli -h "$host" --bigkeys -n 5 | awk '/^[0-9]* .* avg size [0-9\.]*\)$/{gsub(")", "", $NF); printf("%s %s %s\n", $1, $2, $NF)}')
   
