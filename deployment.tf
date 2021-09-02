@@ -1,6 +1,7 @@
 resource "kubernetes_deployment" "redis_bigkeys_monitoring" {
   metadata {
-    name = "redis-bigkeys-monitoring"
+    name      = "redis-bigkeys-monitoring"
+    namespace = var.namespace
     labels = {
       app = "redis-bigkeys-monitoring"
     }
