@@ -68,7 +68,7 @@
           "metricQuery": {
             "aliasBy": "{{ metric.label.name }} {{ metric.label.type }}",
             "alignmentPeriod": "cloud-monitoring-auto",
-            "crossSeriesReducer": "REDUCE_MEAN",
+            "crossSeriesReducer": "REDUCE_NONE",
             "editorMode": "visual",
             "filters": [],
             "groupBys": [
@@ -77,8 +77,9 @@
             ],
             "metricKind": "GAUGE",
             "metricType": "custom.googleapis.com/redis/bigkeys/biggest",
-            "perSeriesAligner": "ALIGN_INTERPOLATE",
+            "perSeriesAligner": "ALIGN_MEAN",
             "query": "",
+            "unit": "",
             "valueType": "DOUBLE"
           },
           "queryType": "metrics",
@@ -196,7 +197,7 @@
           "metricQuery": {
             "aliasBy": "{{ metric.label.type }}",
             "alignmentPeriod": "cloud-monitoring-auto",
-            "crossSeriesReducer": "REDUCE_MEAN",
+            "crossSeriesReducer": "REDUCE_NONE",
             "editorMode": "visual",
             "filters": [],
             "groupBys": [
@@ -204,8 +205,9 @@
             ],
             "metricKind": "GAUGE",
             "metricType": "custom.googleapis.com/redis/bigkeys/avg",
-            "perSeriesAligner": "ALIGN_INTERPOLATE",
+            "perSeriesAligner": "ALIGN_MEAN",
             "query": "",
+            "unit": "",
             "valueType": "DOUBLE"
           },
           "queryType": "metrics",
@@ -230,7 +232,7 @@
       },
       "id": 8,
       "options": {
-        "content": "# Logs\n\nLogs could be located in Stackdriver monitoring:\n  * [`Average` log lines](https://console.cloud.google.com/logs/query;query=resource.labels.container_name%3D%22redis-bigkeys-monitoring%22%0AjsonPayload.type%3D%22avg%22;timeRange=P3D?project=${project_id)\n  * [`Biggest` log lines](https://console.cloud.google.com/logs/query;query=resource.labels.container_name%3D%22redis-bigkeys-monitoring%22%0AjsonPayload.type%3D%22biggest%22;timeRange=P3D?project=flash-news-development)",
+        "content": "# Logs\n\nLogs could be located in Stackdriver monitoring:\n  * [`Average` log lines](https://console.cloud.google.com/logs/query;query=resource.labels.container_name%3D%22redis-bigkeys-monitoring%22%0AjsonPayload.type%3D%22avg%22;timeRange=P3D?project=${project_id})\n  * [`Biggest` log lines](https://console.cloud.google.com/logs/query;query=resource.labels.container_name%3D%22redis-bigkeys-monitoring%22%0AjsonPayload.type%3D%22biggest%22;timeRange=P3D?project=${project_id})",
         "mode": "markdown"
       },
       "pluginVersion": "7.5.4",
@@ -255,7 +257,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},

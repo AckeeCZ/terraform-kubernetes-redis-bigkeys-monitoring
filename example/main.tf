@@ -23,7 +23,7 @@ module "redis_bigkeys" {
 module "redis" {
   source                 = "AckeeCZ/redis/memorystore"
   version                = "3.2.0"
-  instance_name          = "fn-papillon-cache"
+  instance_name          = "cache"
   redis_version          = "REDIS_5_0"
   project                = var.project
   namespace              = var.namespace
@@ -34,7 +34,7 @@ module "redis" {
 
 module "gke" {
   source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v9.5.0"
-  cluster_name      = "postgresql-cluster-test"
+  cluster_name      = "redis-cluster-test"
   namespace         = var.namespace
   project           = var.project
   location          = var.zone
