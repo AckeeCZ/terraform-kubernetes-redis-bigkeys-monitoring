@@ -1,11 +1,16 @@
 variable "project" {
+  description = "Project ID"
 }
 
 variable "docker_tag" {
-  default = "latest"
+  description = "Tag of image ackee/redis_bigkeys used for monitoring"
+  default     = "latest"
+  type        = string
 }
 
 variable "namespace" {
+  description = "Namespace for monitoring deployment containing pod runtime"
+  type        = string
 }
 
 variable "cluster_ca_certificate" {
@@ -24,5 +29,6 @@ variable "cluster_endpoint" {
 }
 
 variable "redis_host" {
-  default = ""
+  description = "Redis machine hostame or ip"
+  type        = string
 }

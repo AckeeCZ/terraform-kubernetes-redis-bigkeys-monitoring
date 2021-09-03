@@ -1,4 +1,3 @@
-
 resource "kubernetes_deployment" "redis_bigkeys_monitoring" {
   metadata {
     name      = "redis-bigkeys-monitoring"
