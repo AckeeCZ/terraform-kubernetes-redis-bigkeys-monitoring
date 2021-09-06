@@ -28,13 +28,13 @@ variable "cluster_endpoint" {
   type        = string
 }
 
-variable "redis_host" {
-  description = "Redis machine hostame or ip"
-  type        = string
+variable "redis_instances" {
+  description = "Map of redis instances with items in containing fields instance_hostname and instance_database, key is instance_name"
+  type        = map(map(string))
+  default     = {}
 }
 
-variable "redis_database" {
-  description = "Redis database for big keys check"
-  default     = 5
-  type        = number
+variable "include_dashboard" {
+  description = "Include dashboard as k8s secret"
+  default     = true
 }

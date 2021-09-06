@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 29,
+  "id": 30,
+  "iteration": 1630935810418,
   "links": [],
   "panels": [
     {
@@ -70,7 +71,15 @@
             "alignmentPeriod": "cloud-monitoring-auto",
             "crossSeriesReducer": "REDUCE_NONE",
             "editorMode": "visual",
-            "filters": [],
+            "filters": [
+              "metric.label.host",
+              "=",
+              "$redis_host",
+              "AND",
+              "metric.label.database",
+              "=",
+              "$redis_database"
+            ],
             "groupBys": [
               "metric.label.name",
               "metric.label.type"
@@ -197,9 +206,17 @@
           "metricQuery": {
             "aliasBy": "{{ metric.label.type }}",
             "alignmentPeriod": "cloud-monitoring-auto",
-            "crossSeriesReducer": "REDUCE_NONE",
+            "crossSeriesReducer": "REDUCE_MEAN",
             "editorMode": "visual",
-            "filters": [],
+            "filters": [
+              "metric.label.host",
+              "=",
+              "$redis_host",
+              "AND",
+              "metric.label.database",
+              "=",
+              "$redis_database"
+            ],
             "groupBys": [
               "metric.label.type"
             ],
@@ -238,8 +255,7 @@
       "pluginVersion": "7.5.4",
       "targets": [
         {
-          "metricQuery": {
-          },
+          "metricQuery": {},
           "queryType": "metrics",
           "refId": "A"
         }
@@ -254,7 +270,104 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "10.12.237.227",
+          "value": "10.12.237.227"
+        },
+        "datasource": null,
+        "definition": "",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Redis Hosts",
+        "multi": false,
+        "name": "redis_host",
+        "options": [],
+        "query": {
+          "labelKey": "metric.label.host",
+          "loading": false,
+          "projectName": "${project_id}",
+          "projects": [
+            {
+              "label": "${project_id}",
+              "value": "${project_id}"
+            }
+          ],
+          "refId": "CloudMonitoringVariableQueryEditor-VariableQuery",
+          "selectedMetricType": "custom.googleapis.com/redis/bigkeys/avg",
+          "selectedQueryType": "labelValues",
+          "selectedSLOService": "",
+          "selectedService": "custom.googleapis.com",
+          "sloServices": [
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "5",
+          "value": "5"
+        },
+        "datasource": null,
+        "definition": "",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Redis Database",
+        "multi": false,
+        "name": "redis_database",
+        "options": [
+          {
+            "selected": true,
+            "text": "5",
+            "value": "5"
+          }
+        ],
+        "query": {
+          "labelKey": "metric.label.database",
+          "loading": false,
+          "projectName": "${project_id}",
+          "projects": [
+            {
+              "label": "${project_id}",
+              "value": "${project_id}"
+            }
+          ],
+          "refId": "CloudMonitoringVariableQueryEditor-VariableQuery",
+          "selectedMetricType": "custom.googleapis.com/redis/bigkeys/avg",
+          "selectedQueryType": "labelValues",
+          "selectedSLOService": "",
+          "selectedService": "custom.googleapis.com",
+          "sloServices": [
+          ]
+        },
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
@@ -263,6 +376,6 @@
   "timepicker": {},
   "timezone": "",
   "title": "Redis Bigkeys",
-  "uid": "yXKyQYV7k",
-  "version": 4
+  "uid": "S_EOtRS7z",
+  "version": 5
 }

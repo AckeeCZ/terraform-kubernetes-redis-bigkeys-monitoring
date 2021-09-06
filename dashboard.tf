@@ -1,4 +1,6 @@
 resource "kubernetes_secret" "grafana_redis_bigkeys" {
+  count = var.include_dashboard ? 1 : 0
+
   metadata {
     name      = "grafana-redis-bigkeys"
     namespace = var.namespace
