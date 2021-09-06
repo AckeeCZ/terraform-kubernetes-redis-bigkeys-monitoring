@@ -32,3 +32,9 @@ variable "redis_host" {
   description = "Redis machine hostame or ip"
   type        = string
 }
+
+variable "redis_database" {
+  description = "Redis database for big keys check"
+  default     = 5
+  type        = number
+}

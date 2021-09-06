@@ -35,6 +35,10 @@ resource "kubernetes_deployment" "redis_bigkeys_monitoring" {
             name  = "GCP_PROJECT_ID"
             value = var.project
           }
+          env {
+            name  = "DATABASE"
+            value = var.redis_database
+          }
         }
       }
     }
