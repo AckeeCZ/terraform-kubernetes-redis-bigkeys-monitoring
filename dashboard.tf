@@ -13,7 +13,7 @@ resource "kubernetes_secret" "grafana_redis_bigkeys" {
   }
 
   data = {
-    "redis.json" = templatefile(
+    "redis_bigkeys.json" = templatefile(
       "${path.module}/dashboard/dashboard.json.tpl",
       {
         project_id = var.project
