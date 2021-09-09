@@ -41,6 +41,10 @@ resource "kubernetes_deployment" "redis_bigkeys_monitoring" {
             name  = "DATABASE"
             value = lookup(each.value, "instance_database", "5")
           }
+          env {
+            name  = "SLEEP"
+            value = lookup(each.value, "instance_collection_interval_sleep", "300")
+          }
         }
       }
     }
