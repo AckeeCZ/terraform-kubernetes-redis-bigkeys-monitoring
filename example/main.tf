@@ -33,7 +33,7 @@ module "redis" {
 }
 
 module "gke" {
-  source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v9.5.0"
+  source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v10.0.0"
   cluster_name      = "redis-cluster-test"
   namespace         = var.namespace
   project           = var.project
