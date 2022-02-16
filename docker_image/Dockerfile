@@ -1,6 +1,11 @@
-FROM ackee/gitlab-builder
+FROM google/cloud-sdk
 
-RUN apk --update add redis
+RUN apt-get update && \
+    apt-get install -y jq redis-tools && \
+    apt-get clean autoclean && \
+    apt-get autoremove --yes && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
+
 COPY redis_bigkeys.sh /opt/redis_bigkeys.sh
 
 ENV DATABASE "5"

@@ -26,6 +26,7 @@ resource "kubernetes_deployment" "redis_bigkeys_monitoring" {
       }
 
       spec {
+        service_account_name = var.gke_workload_identity ? "redis-bigkeys-monitoring-${each.key}" : null
         container {
           image = "ackee/redis_bigkeys:${var.docker_tag}"
           name  = "redis-bigkeys-monitoring-${each.key}"
