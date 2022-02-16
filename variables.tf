@@ -38,3 +38,8 @@ variable "include_dashboard" {
   description = "Include dashboard as k8s secret"
   default     = true
 }
+
+variable "gke_workload_identity" {
+  description = "Add resources need for GKE workload identity setup"
+  default     = true
+}

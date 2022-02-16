@@ -81,7 +81,7 @@ while true; do
           --arg host "$HOST" \
           '{"count": $avg_count, "type": $avg_type, "database": $database, "host": $host}')
       gcm_write_metric "redis/bigkeys/avg" "$labels" "$avg_value" doubleValue
-  done <<< $(printf "%s" "$redis_output" | awk '/^[0-9]* .* avg size [0-9\.]*\)$/{gsub(")", "", $NF); printf("%s %s %s\n", $1, $2, $NF)}')
+  done <<< $(printf "%s" "$redis_output" | awk '/^[0-9]* .* avg size [0-9\.]*\)$/{gsub("\)", "", $NF); printf("%s %s %s\n", $1, $2, $NF)}')
 
   avg_lines=`printf "%s" "$redis_output" | grep '^[0-9]* .* avg size [0-9\.]*)$'`
   print_jsonized_lines "$avg_lines" "avg"
