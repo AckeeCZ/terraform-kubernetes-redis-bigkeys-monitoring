@@ -6,9 +6,44 @@ provider "google-beta" {}
 
 provider "vault" {}
 
-provider "kubernetes" {}
+provider "kubernetes" {
+  host                   = "https://${module.gke.endpoint}"
+  token                  = module.gke.access_token
+  cluster_ca_certificate = module.gke.cluster_ca_certificate
+}
 
-provider "helm" {}
+provider "helm" {
+  kubernetes {
+    cluster_ca_certificate = module.gke.cluster_ca_certificate
+    token                  = module.gke.access_token
+    host                   = "https://${module.gke.endpoint}"
+  }
+}
+
+locals {
+  grafana_host = "grafana.example.com"
+}
+
+provider "grafana" {
+  url  = "https://${local.grafana_host}"
+  auth = "${module.grafana.admin_user}:${module.grafana.admin_pass}"
+}
+
+module "grafana" {
+  source                     = "git::ssh://git@gitlab.ack.ee/Infra/tf-module/grafana.git?ref=v4.0.0"
+  project                    = var.project
+  namespace                  = var.namespace
+  region                     = var.region
+  zone                       = var.zone
+  gke_cluster_ca_certificate = module.gke.cluster_ca_certificate
+  gke_cluster_token          = module.gke.access_token
+  gke_cluster_endpoint       = module.gke.endpoint
+  ingress_host               = local.grafana_host
+  oauth_client_id            = "dummy"
+  oauth_client_secret        = "dummy"
+  smtp_user                  = "apikey"
+  smtp_pass                  = "dummy"
+}
 
 module "redis_bigkeys" {
   source                 = "../"
@@ -17,7 +52,12 @@ module "redis_bigkeys" {
   cluster_ca_certificate = module.gke.cluster_ca_certificate
   cluster_token          = module.gke.access_token
   cluster_endpoint       = module.gke.endpoint
-  redis_host             = module.redis.google_redis_instance_hostname
+  include_dashboard      = false
+  redis_instances = {
+    "fn-cache" : {
+      "instance_hostname" : module.redis.google_redis_instance_hostname
+    }
+  }
 }
 
 module "redis" {
@@ -33,7 +73,7 @@ module "redis" {
 }
 
 module "gke" {
-  source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v9.5.0"
+  source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v11.8.0"
   cluster_name      = "redis-cluster-test"
   namespace         = var.namespace
   project           = var.project
