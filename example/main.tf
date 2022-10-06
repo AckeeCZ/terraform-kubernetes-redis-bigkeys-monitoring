@@ -30,7 +30,7 @@ provider "grafana" {
 }
 
 module "grafana" {
-  source                     = "git::ssh://git@gitlab.ack.ee/Infra/tf-module/grafana.git?ref=v4.0.0"
+  source                     = "git::ssh://git@gitlab.ack.ee/Infra/tf-module/grafana.git?ref=v4.1.0"
   project                    = var.project
   namespace                  = var.namespace
   region                     = var.region
