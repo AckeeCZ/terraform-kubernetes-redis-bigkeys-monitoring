@@ -13,6 +13,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_grafana"></a> [grafana](#provider\_grafana) | n/a |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules
@@ -26,8 +27,8 @@ No modules.
 | [google_project_iam_member.sa](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_service_account.sa](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_service_account_iam_member.sa_allow_iam_workload_identity](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
+| [grafana_dashboard.grafana_redis_bigkeys](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/dashboard) | resource |
 | [kubernetes_deployment.redis_bigkeys_monitoring](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment) | resource |
-| [kubernetes_secret.grafana_redis_bigkeys](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [kubernetes_service_account.sa](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
 
 ## Inputs
@@ -39,6 +40,7 @@ No modules.
 | <a name="input_cluster_token"></a> [cluster\_token](#input\_cluster\_token) | Cluster master token, keep always secret! | `string` | n/a | yes |
 | <a name="input_docker_tag"></a> [docker\_tag](#input\_docker\_tag) | Tag of image ackee/redis\_bigkeys used for monitoring | `string` | `"latest"` | no |
 | <a name="input_gke_workload_identity"></a> [gke\_workload\_identity](#input\_gke\_workload\_identity) | Add resources need for GKE workload identity setup | `bool` | `true` | no |
+| <a name="input_grafana_folder_id"></a> [grafana\_folder\_id](#input\_grafana\_folder\_id) | ID of Grafana folder where we store dashboard | `number` | `1` | no |
 | <a name="input_include_dashboard"></a> [include\_dashboard](#input\_include\_dashboard) | Include dashboard as k8s secret | `bool` | `true` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace for monitoring deployment containing pod runtime | `string` | n/a | yes |
 | <a name="input_project"></a> [project](#input\_project) | Project ID | `any` | n/a | yes |

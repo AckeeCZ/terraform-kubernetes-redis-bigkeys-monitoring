@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.3.0] - 2022-10-05
+### Changed
+- TF providers and modules versions in example folder
+- dashboard provisioning from `kubernetes_secret` to `grafana_dashboard`
+### Added
+- `grafana_folder_id` parameter
+
 ## [v1.2.0] - 2022-02-16
 ### Added
 - workload identity support

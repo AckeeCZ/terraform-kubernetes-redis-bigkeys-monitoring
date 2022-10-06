@@ -43,3 +43,9 @@ variable "gke_workload_identity" {
   description = "Add resources need for GKE workload identity setup"
   default     = true
 }
+
+variable "grafana_folder_id" {
+  description = "ID of Grafana folder where we store dashboard"
+  type        = number
+  default     = 1
+}

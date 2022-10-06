@@ -3,34 +3,76 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "stackdriver",
+          "uid": "gcm"
+        },
+        "enable": true,
+        "iconColor": "dark-blue",
+        "name": "Deployments",
+        "target": {
+          "metricQuery": {
+            "alignmentPeriod": "grafana-auto",
+            "crossSeriesReducer": "REDUCE_NONE",
+            "editorMode": "visual",
+            "filters": [],
+            "groupBys": [
+              "metric.label.project_branch",
+              "metric.label.project"
+            ],
+            "labels": {},
+            "metricKind": "GAUGE",
+            "metricType": "custom.googleapis.com/ci/deployment",
+            "perSeriesAligner": "ALIGN_MEAN",
+            "preprocessor": "none",
+            "projects": [],
+            "query": "",
+            "refId": "annotationQuery",
+            "text": "Branch <b>{{metric.label.project_branch}}</b> of project <b>{{metric.label.project}}</b> was deployed",
+            "title": "DEPLOYMENT",
+            "valueType": "INT64",
+            "variableOptionGroup": {},
+            "variableOptions": []
+          },
+          "refId": "Anno"
+        }
       }
     ]
   },
-  "editable": true,
-  "gnetId": null,
-  "graphTooltip": 0,
-  "id": 30,
-  "iteration": 1630935810418,
+  "editable": false,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "gcm"
       },
-      "fill": 1,
+      "description": "",
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
@@ -41,10 +83,12 @@
       "hiddenSeries": false,
       "id": 2,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
         "total": false,
         "values": false
@@ -56,7 +100,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.4",
+      "pluginVersion": "9.1.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -66,6 +110,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "gcm"
+          },
           "metricQuery": {
             "aliasBy": "{{ metric.label.name }} {{ metric.label.type }}",
             "alignmentPeriod": "cloud-monitoring-auto",
@@ -96,9 +144,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Biggest Type",
       "tooltip": {
         "shared": true,
@@ -107,43 +153,39 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "gcm"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -153,7 +195,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -162,7 +205,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -193,16 +243,22 @@
         "graph": {},
         "legend": {
           "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "tooltipOptions": {
-          "mode": "single"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "7.5.4",
       "targets": [
         {
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "gcm"
+          },
           "metricQuery": {
             "aliasBy": "{{ metric.label.type }}",
             "alignmentPeriod": "cloud-monitoring-auto",
@@ -235,12 +291,11 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "gcm"
       },
+      "description": "",
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -252,36 +307,81 @@
         "content": "# Logs\n\nLogs could be located in Stackdriver monitoring:\n  * [`Average` log lines](https://console.cloud.google.com/logs/query;query=resource.labels.container_name%3D%22redis-bigkeys-monitoring%22%0AjsonPayload.type%3D%22avg%22;timeRange=P3D?project=${project_id})\n  * [`Biggest` log lines](https://console.cloud.google.com/logs/query;query=resource.labels.container_name%3D%22redis-bigkeys-monitoring%22%0AjsonPayload.type%3D%22biggest%22;timeRange=P3D?project=${project_id})",
         "mode": "markdown"
       },
-      "pluginVersion": "7.5.4",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "gcm"
+          },
           "metricQuery": {},
           "queryType": "metrics",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Description",
       "type": "text"
     }
   ],
-  "schemaVersion": 27,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "selected": true,
-          "text": "10.12.237.227",
-          "value": "10.12.237.227"
+          "selected": false,
+          "text": "flash-news-production",
+          "value": "flash-news-production"
         },
-        "datasource": null,
         "definition": "",
-        "description": null,
-        "error": null,
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "project_id",
+        "options": [],
+        "query": {
+          "labelKey": "",
+          "loading": false,
+          "projects": [
+            {
+              "label": "flash-news-production",
+              "value": "flash-news-production"
+            }
+          ],
+          "refId": "CloudMonitoringVariableQueryEditor-VariableQuery",
+          "selectedMetricType": "actions.googleapis.com/smarthome_action/execution_success_confidence",
+          "selectedQueryType": "projects",
+          "selectedSLOService": "",
+          "selectedService": "actions.googleapis.com",
+          "sloServices": [
+            {
+              "label": "papillon",
+              "value": "NgR10BrzQm6YGZfAiGlqxw"
+            },
+            {
+              "label": "flash-news-web",
+              "value": "vW_CeLrKQZGBqbGrt9rlzg"
+            }
+          ]
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "10.74.108.180",
+          "value": "10.74.108.180"
+        },
+        "datasource": {
+          "type": "stackdriver",
+          "uid": "gcm"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": "Redis Hosts",
@@ -291,11 +391,11 @@
         "query": {
           "labelKey": "metric.label.host",
           "loading": false,
-          "projectName": "${project_id}",
+          "projectName": "$project_id",
           "projects": [
             {
-              "label": "${project_id}",
-              "value": "${project_id}"
+              "label": "flash-news-production",
+              "value": "flash-news-production"
             }
           ],
           "refId": "CloudMonitoringVariableQueryEditor-VariableQuery",
@@ -304,6 +404,14 @@
           "selectedSLOService": "",
           "selectedService": "custom.googleapis.com",
           "sloServices": [
+            {
+              "label": "papillon",
+              "value": "NgR10BrzQm6YGZfAiGlqxw"
+            },
+            {
+              "label": "flash-news-web",
+              "value": "vW_CeLrKQZGBqbGrt9rlzg"
+            }
           ]
         },
         "refresh": 1,
@@ -311,42 +419,35 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "5",
           "value": "5"
         },
-        "datasource": null,
+        "datasource": {
+          "type": "stackdriver",
+          "uid": "gcm"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Redis Database",
         "multi": false,
         "name": "redis_database",
-        "options": [
-          {
-            "selected": true,
-            "text": "5",
-            "value": "5"
-          }
-        ],
+        "options": [],
         "query": {
           "labelKey": "metric.label.database",
           "loading": false,
-          "projectName": "${project_id}",
+          "projectName": "$project_id",
           "projects": [
             {
-              "label": "${project_id}",
-              "value": "${project_id}"
+              "label": "flash-news-production",
+              "value": "flash-news-production"
             }
           ],
           "refId": "CloudMonitoringVariableQueryEditor-VariableQuery",
@@ -355,14 +456,21 @@
           "selectedSLOService": "",
           "selectedService": "custom.googleapis.com",
           "sloServices": [
+            {
+              "label": "papillon",
+              "value": "NgR10BrzQm6YGZfAiGlqxw"
+            },
+            {
+              "label": "flash-news-web",
+              "value": "vW_CeLrKQZGBqbGrt9rlzg"
+            }
           ]
         },
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -370,12 +478,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Redis Bigkeys",
   "uid": "S_EOtRS7z",
-  "version": 5
+  "version": 1,
+  "weekStart": ""
 }
